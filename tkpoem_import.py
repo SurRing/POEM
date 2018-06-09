@@ -152,3 +152,60 @@ def information_pickle_load(location):
     information = pickle.load(information_file)
     information_file.close()
     return information
+
+class Poem():
+
+    def __init__(self, number, title, dynasty, author, content, sentence_number):
+        self.number = number
+        self.title = str(title)
+        self.dynasty = str(dynasty)
+        self.author = str(author)
+        self.content = content
+        self.sentence_number = sentence_number
+        self.mark = 0
+
+    def poem_name(self):
+        poem_name = "《" + self.title + "》 " + self.dynasty + "·" + self.author
+        return poem_name
+
+class Question():
+
+    def __init__(self, number, question, author):
+        self.number = None
+        self.question = None
+        self.author = None
+        self.kind = None
+
+class Completion_question(Question):
+
+    def __init__(self, number, question, author, clues, spaces):
+        self.number = number
+        self.question = str(question)
+        self.author = str(author)
+        self.kind = "completion question"
+        self.clues = clues
+        self.spaces = spaces
+
+class Multiple_question(Question):
+
+    def __init__(self, number, question, author, question_content, choice1, choice2, choice3, choice4, v):
+        self.number = number
+        self.question = str(question)
+        self.author = str(author)
+        self.kind = "multiple question"
+        self.question_content = question_content
+        self.A_choice = choice1
+        self.B_choice = choice2
+        self.C_choice = choice3
+        self.D_choice = choice4
+        self.key = v
+
+class Free_response_question(Question):
+
+    def __init__(self, number, question, author, question_content, answer):
+        self.number = number
+        self.question = str(question)
+        self.author = str(author)
+        self.kind = "free response question"
+        self.question_content = question_content
+        self.answer = answer

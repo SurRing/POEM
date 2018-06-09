@@ -5,24 +5,35 @@ import tkinter
 import random
 
 from tkpoem_function import *
+import tkpoem_windows
 
-def next_poem_test(random_test_window, all_poem_list, sum_sentence_list):
-    random_test_window.key_label.pack_forget()
-    test_poem_name, test_print, key_print = choose_test_sentence(all_poem_list, sum_sentence_list)
-    random_test_window.name_label.config(text=test_poem_name)
-    random_test_window.test_label.config(text=test_print)
-    random_test_window.key_label.config(text=key_print)
-
+def poem_classic(all_poem_list):
+    finish_class = []
+    citing_class = []
+    for poem in all_poem_list:
+        print(poem.mark)
+        if poem.mark > 3:
+            finish_class.append(poem.number)
+        else:
+            citing_class.append(poem.number)
+    print(finish_class, citing_class)
+    return finish_class, citing_class
 
 # 随机抽取测试句
-def choose_test_sentence(all_poem_list, sum_sentence_list):
-    test_poem = random_in_sentence(all_poem_list, sum_sentence_list)
-    test_poem_name = poem_name(test_poem)
-    print(test_poem, test_poem_name)
-    distence = random.choice(range(1, test_poem['sentence_number'] + 1))
+def choose_test_sentence(all_poem_list, finish_class, citing_class):
+    if random.choice(range(100)) > 90 and finish_class != []:
+        test_poem = random_in_poem(all_poem_list, finish_class)
+    elif citing_class == []:
+        tkpoem_windows.message_window("全部完成")
+        test_poem = random_in_poem(all_poem_list, finish_class)
+    else:
+        test_poem = random_in_poem(all_poem_list, citing_class)
+    test_poem_number = test_poem.number
+    test_poem_name = test_poem.poem_name()
+    distence = random.choice(range(1, test_poem.sentence_number + 1))
     test_print = ''
     test_key = ''
-    for section in test_poem['content']:
+    for section in test_poem.content:
         for whole_sentence in section:
             for sentence in whole_sentence:
                 distence -= 1
@@ -40,7 +51,7 @@ def choose_test_sentence(all_poem_list, sum_sentence_list):
                 break
         if distence == 0:
             break
-    return test_poem_name, test_print, test_key
+    return test_poem, test_print, test_key
 
     #随机抽取并每句概率相同
 def random_in_sentence(all_poem_list, sum_sentence_list):
