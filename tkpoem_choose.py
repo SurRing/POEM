@@ -53,7 +53,7 @@ def choose_test_sentence(all_poem_list, finish_class, citing_class):
             break
     return test_poem, test_print, test_key
 
-    #随机抽取并每句概率相同
+#随机抽取并每句概率相同
 def random_in_sentence(all_poem_list, sum_sentence_list):
     random_list = []
     n = 0
@@ -64,7 +64,7 @@ def random_in_sentence(all_poem_list, sum_sentence_list):
     test_poem = all_poem_list[random.choice(random_list)]
     return test_poem
 
-    #随机抽取并每首概率相同
+#随机抽取并每首概率相同
 def random_in_poem(all_poem_list, choose_list):
     test_poem = all_poem_list[random.choice(choose_list)]
     return test_poem

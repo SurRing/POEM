@@ -50,6 +50,10 @@ class all_poem_window():
         self.show_poem_window = show_poem_window()
 
         self.show_poem_window.text.insert(tkinter.END, get_poem(self.all_poem_list[self.list.curselection()[0]]))
+        if self.all_poem_list[self.list.curselection()[0]].mark >= 4:
+            self.show_poem_window.text.insert(tkinter.END, "已习得")
+        else:
+            self.show_poem_window.text.insert(tkinter.END, "未掌握")
 
 # 随机测试窗口
 class random_test_window():
@@ -163,7 +167,7 @@ class new_poem_window():
                 sentence += char
                 sentence_flag = 1
         poem = Poem(number, self.title_entry.get(), self.dynasty_entry.get(), self.author_entry.get(), content, sum_sentence)
-        information_pickle_dump(poem, "%s/poem/【%d】%s.json" % (current_dirname, poem.number, poem.poem_name()))
+        information_pickle_dump(poem, "%s/poem/【%d】%s1.json" % (current_dirname, poem.number, poem.poem_name()))
         #all_poem_list.append(poem)
         print(poem.poem_name(), "is completed.")
         self.window.destroy()
@@ -247,7 +251,7 @@ class completion_window():
                 else:
                     space += c
         completion_question = Completion_question(number, self.question_entry.get(), self.author_entry.get(), clues, spaces)
-        information_pickle_dump(completion_question, "%s/question/completion question/【%d】%s.json" % (current_dirname,completion_question.number, completion_question.question))
+        information_pickle_dump(completion_question, "%s/question/completion question/【%d】%s %s1.json" % (current_dirname,completion_question.number, completion_question.question, completion_question.author))
         print(completion_question.question, "is completed.")
         self.window.destroy()
 
@@ -290,7 +294,7 @@ class multiple_choice_window():
 
         multiple_question = Multiple_question(number, self.question_entry.get(), self.author_entry.get(),self.question_text.get("0.0", "end"),
                                               self.choice1_entry,self.choice2_entry, self.choice3_entry, self.choice4_entry, self.v.get())
-        information_pickle_dump(multiple_question, "%s/question/multiple question/【%d】%s.json" % (current_dirname,multiple_question.number, multiple_question.question))
+        information_pickle_dump(multiple_question, "%s/question/multiple question/【%d】%s %s1.json" % (current_dirname,multiple_question.number, multiple_question.question, multiple_question.author))
         print(multiple_question.question, "is completed.")
         self.window.destroy()
 
@@ -314,6 +318,6 @@ class free_response_window():
     def confirm(self, current_dirname):
         number = len([x for x in os.listdir("%s/question/free response question" %(current_dirname))])
         free_response_question = Free_response_question(number, self.question_entry.get(), self.author_entry.get(), self.question_text.get("0.0", "end"), self.answer_text.get("0.0", "end"))
-        information_pickle_dump(free_response_question, "%s/question/free response question/【%d】%s.json" % (current_dirname,free_response_question.number, free_response_question.question))
+        information_pickle_dump(free_response_question, "%s/question/free response question/【%d】%s %s1.json" % (current_dirname,free_response_question.number, free_response_question.question, free_response_question.author))
         print(free_response_question.question, "is completed.")
         self.window.destroy()

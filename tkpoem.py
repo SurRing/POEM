@@ -50,9 +50,10 @@ class Poem():
     def start(self):
         self.all_poem_list = []
         for poem_json in os.listdir("%s/poem" % (self.current_dirname)):
-            poem = information_pickle_load("%s/poem/%s"%(self.current_dirname, poem_json))
-            self.all_poem_list.append(poem)
-            print(poem.poem_name())
+            if poem_json[-6:-5] == "1":
+                poem = information_pickle_load("%s/poem/%s"%(self.current_dirname, poem_json))
+                self.all_poem_list.append(poem)
+                print(poem.poem_name())
         # self.debug()
 
     # 试图创建预览所有窗口
@@ -101,7 +102,7 @@ class Poem():
 
     def dump(self):
         for poem in self.all_poem_list:
-            information_pickle_dump(poem, "%s/poem/【%d】%s.json" % (self.current_dirname, poem.number, poem.poem_name()))
+            information_pickle_dump(poem, "%s/poem/【%d】%s1.json" % (self.current_dirname, poem.number, poem.poem_name()))
         try:
             self.dump_window.window.destroy()
         except:
